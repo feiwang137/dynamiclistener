@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2b68a177-2128-4e00-9d00-023c98440e5c" name="Default Changelist" comment="" />
+    <list default="true" id="2b68a177-2128-4e00-9d00-023c98440e5c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cert/cert.go" beforeDir="false" afterPath="$PROJECT_DIR$/cert/cert.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/factory/cert_utils.go" beforeDir="false" afterPath="$PROJECT_DIR$/factory/cert_utils.go" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
