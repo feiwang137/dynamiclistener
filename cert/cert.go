@@ -76,7 +76,7 @@ func NewSelfSignedCACert(cfg Config, key crypto.Signer) (*x509.Certificate, erro
 			Organization: cfg.Organization,
 		},
 		NotBefore:             now.UTC(),
-		NotAfter:              now.Add(duration50y * 10).UTC(),
+		NotAfter:              now.Add(duration50y * 1).UTC(),
 		KeyUsage:              x509.KeyUsageKeyEncipherment | x509.KeyUsageDigitalSignature | x509.KeyUsageCertSign,
 		BasicConstraintsValid: true,
 		IsCA:                  true,
