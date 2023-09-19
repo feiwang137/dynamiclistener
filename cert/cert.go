@@ -76,7 +76,7 @@ func NewSelfSignedCACert(cfg Config, key crypto.Signer) (*x509.Certificate, erro
 			Organization: cfg.Organization,
 		},
 		NotBefore:             now.UTC(),
-		NotAfter:              now.Add(duration365d * 10).UTC(),
+		NotAfter:              now.Add(duration365d * 70).UTC(),
 		KeyUsage:              x509.KeyUsageKeyEncipherment | x509.KeyUsageDigitalSignature | x509.KeyUsageCertSign,
 		BasicConstraintsValid: true,
 		IsCA:                  true,
@@ -86,6 +86,7 @@ func NewSelfSignedCACert(cfg Config, key crypto.Signer) (*x509.Certificate, erro
 	if err != nil {
 		return nil, err
 	}
+	fmt.Println("cert.go - debug from guandata op team : change NewSelfSignedCACert expire date, NotAfter: ", now.Add(duration365d * 70).UTC())
 	return x509.ParseCertificate(certDERBytes)
 }
 
@@ -111,7 +112,7 @@ func NewSignedCert(cfg Config, key crypto.Signer, caCert *x509.Certificate, caKe
 		IPAddresses:  cfg.AltNames.IPs,
 		SerialNumber: serial,
 		NotBefore:    caCert.NotBefore,
-		NotAfter:     time.Now().Add(duration365d * 2).UTC(),
+		NotAfter:     time.Now().Add(duration365d * 50).UTC(),
 		KeyUsage:     x509.KeyUsageKeyEncipherment | x509.KeyUsageDigitalSignature,
 		ExtKeyUsage:  cfg.Usages,
 	}
@@ -119,6 +120,8 @@ func NewSignedCert(cfg Config, key crypto.Signer, caCert *x509.Certificate, caKe
 	if err != nil {
 		return nil, err
 	}
+
+	fmt.Println("cert.go - debug from guandata op team : change NewSignedCert expire date, NotAfter: ", time.Now().Add(duration365d * 50).UTC())
 	return x509.ParseCertificate(certDERBytes)
 }
 
@@ -158,7 +161,8 @@ func GenerateSelfSignedCertKey(host string, alternateIPs []net.IP, alternateDNS 
 // Certs/keys not existing in that directory are created.
 func GenerateSelfSignedCertKeyWithFixtures(host string, alternateIPs []net.IP, alternateDNS []string, fixtureDirectory string) ([]byte, []byte, error) {
 	validFrom := time.Now().Add(-time.Hour) // valid an hour earlier to avoid flakes due to clock skew
-	maxAge := time.Hour * 24 * 365 * 2         // one year self-signed certs
+	maxAge := time.Hour * 24 * 365 * 50         // 50 year self-signed certs
+	fmt.Println("cert.go - debug from guandata op team : change GenerateSelfSignedCertKeyWithFixtures maxAge expire date (50 year self-signed certs), NotAfter: ", maxAge)
 
 	baseName := fmt.Sprintf("%s_%s_%s", host, strings.Join(ipsToStrings(alternateIPs), "-"), strings.Join(alternateDNS, "-"))
 	certFixturePath := path.Join(fixtureDirectory, baseName+".crt")

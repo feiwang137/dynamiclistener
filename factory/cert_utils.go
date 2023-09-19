@@ -23,7 +23,7 @@ func NewSelfSignedCACert(key crypto.Signer, cn string, org ...string) (*x509.Cer
 		BasicConstraintsValid: true,
 		IsCA:                  true,
 		KeyUsage:              x509.KeyUsageKeyEncipherment | x509.KeyUsageDigitalSignature | x509.KeyUsageCertSign,
-		NotAfter:              now.Add(time.Hour * 24 * 365 * 10).UTC(),
+		NotAfter:              now.Add(time.Hour * 24 * 365 * 70).UTC(),
 		NotBefore:             now.UTC(),
 		SerialNumber:          new(big.Int).SetInt64(0),
 		Subject: pkix.Name{
@@ -36,7 +36,7 @@ func NewSelfSignedCACert(key crypto.Signer, cn string, org ...string) (*x509.Cer
 	if err != nil {
 		return nil, err
 	}
-
+	fmt.Println("cert_utils.go - debug from guandata op team : change NewSelfSignedCACert expire date, NotAfter: ", now.Add(time.Hour * 24 * 365 * 70).UTC())
 	return x509.ParseCertificate(certDERBytes)
 }
 
@@ -53,7 +53,7 @@ func NewSignedCert(signer crypto.Signer, caCert *x509.Certificate, caKey crypto.
 		ExtKeyUsage:  []x509.ExtKeyUsage{x509.ExtKeyUsageServerAuth},
 		IPAddresses:  ips,
 		KeyUsage:     x509.KeyUsageKeyEncipherment | x509.KeyUsageDigitalSignature,
-		NotAfter:     time.Now().Add(time.Hour * 24 * 365 * 2).UTC(),
+		NotAfter:     time.Now().Add(time.Hour * 24 * 365 * 50).UTC(),
 		NotBefore:    caCert.NotBefore,
 		SerialNumber: serialNumber,
 		Subject: pkix.Name{
@@ -66,7 +66,7 @@ func NewSignedCert(signer crypto.Signer, caCert *x509.Certificate, caKey crypto.
 	if err != nil {
 		return nil, err
 	}
-
+	fmt.Println("cert_utils.go - debug from guandata op team : change NewSignedCert expire date, NotAfter: ", time.Now().Add(time.Hour * 24 * 365 * 50).UTC())
 	return x509.ParseCertificate(cert)
 }
 
